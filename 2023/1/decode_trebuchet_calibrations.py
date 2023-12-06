@@ -6,17 +6,8 @@ def calibration_value_part_one(line):
 
 # the solution for the second part is a bit more fiddly
 
-digit_names = {
-    1: "one",
-    2: "two",
-    3: "three",
-    4: "four",
-    5: "five",
-    6: "six",
-    7: "seven",
-    8: "eight",
-    9: "nine",
-}
+digit_names = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five",
+    6: "six", 7: "seven", 8: "eight", 9: "nine"}  # fmt: skip
 
 
 def digit_name_starting(string):
@@ -51,7 +42,8 @@ class Decoder:
             # if there's a digit name in the rest of the string, return the digit
             digit, named = digit_name_starting(self.line[self.index :])
             if named:
-                self.index += 1  # len(named)
+                self.index += 1
+                # self.index += len(named) <- can't do this because of "twone" which is 2, 1
                 return digit
 
             # else keep going
@@ -68,6 +60,7 @@ def digits_or_names(line):
 def test_digits_or_names():
     assert digits_or_names("one") == [1]
     assert digits_or_names("one2three") == [1, 2, 3]
+    assert digits_or_names("twone") == [2, 1]
 
 
 def calibration_value(line):
