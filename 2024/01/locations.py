@@ -2,9 +2,19 @@ def total_distance(left: list, right: list) -> int:
     return sum(list(map(lambda x, y: abs(y - x), sorted(left), sorted(right))))
 
 
+EXAMPLE_LISTS = [[3, 4, 2, 1, 3, 3], [4, 3, 5, 3, 9, 3]]
+
+
 def test_total_distance():
-    example_lists = [[3, 4, 2, 1, 3, 3], [4, 3, 5, 3, 9, 3]]
-    assert total_distance(*example_lists) == 11
+    assert total_distance(*EXAMPLE_LISTS) == 11
+
+
+def similarity_score(left: list, right: list) -> int:
+    return sum(list(map(lambda x: x * right.count(x), left)))
+
+
+def test_similarity_score():
+    similarity_score(*EXAMPLE_LISTS) == 31
 
 
 def read() -> tuple[list, list]:
@@ -28,7 +38,8 @@ def test_read():
 
 def main():
     left, right = read()
-    print(total_distance(left, right))
+    print("Part 1", total_distance(left, right))
+    print("Part 2", similarity_score(left, right))
 
 
 if __name__ == "__main__":
