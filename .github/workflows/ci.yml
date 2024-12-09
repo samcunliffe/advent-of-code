@@ -2,36 +2,34 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
 
     steps:
+      - uses: actions/checkout@v4
 
-    - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install black ruff pytest numpy
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install black ruff pytest numpy
+      - name: Lint with black and ruff
+        run: |
+          ruff check . --ignore E501
+          black .
 
-    - name: Lint with black and ruff
-      run: |
-        ruff . --ignore E501 # run ruff on all python and test files, ignoring line length
-        black .
-
-    - name: Test with pytest
-      run: |
-        pytest */*/*.py 
+      - name: Test with pytest
+        run: |
+          pytest */*/*.py
