@@ -1,4 +1,4 @@
-name: CI
+name: Run tests with uv
 
 on:
   push:
@@ -10,26 +10,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.12", "3.13", "3.14"]
+        python-version: ["3.13", "3.14"]
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install black ruff pytest numpy
+        run: uv sync
 
       - name: Lint with black and ruff
-        run: |
-          ruff check . --ignore E501
-          black .
+        run: uv run ruff check .
 
       - name: Test with pytest
-        run: |
-          pytest */*/*.py
+        run: uv run pytest

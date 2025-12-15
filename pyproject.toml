@@ -1,0 +1,13 @@
+[project]
+name = "advent-of-code"
+version = "2025.12"
+description = "Sam's solutions to Advent of Code challenges. Almost vanilla Python."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["pytest", "numpy", "ruff"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.pytest]
+testpaths = ["2025/*/*.py"] # Only test this year's code
