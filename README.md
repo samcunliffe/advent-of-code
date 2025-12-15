@@ -14,6 +14,12 @@ Install everything:
 uv sync
 ```
 
+My solutions are:
+
+```sh
+uv run python 2025/<day>/*.py
+```
+
 TDD with:
 
 ```sh
