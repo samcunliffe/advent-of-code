@@ -1,12 +1,15 @@
-# advent-of-code
+# aoc
 
-My [advent of code](https://adventofcode.com/2023/) solutions.
-I'm going for almost builtin-only Python.
-Numpy is allowed, and Pytest for testing.
+My [Advent of Code](https://adventofcode.com/) solutions.
+
+🍦 I'm going for _nearly_  vanilla Python. Numpy is allowed; Pytest for TDD; and obviously, I'm using [`uv`](https://docs.astral.sh/uv/).
+
+I might change my mind about the rules next year.
+
+![aoc-logos](https://github.com/user-attachments/assets/6dd356e2-13cd-4ba9-9390-80391107c1d2)
 
 ## `uv`
 
-Obviously I'm now using `uv`.
 
 Install everything:
 
@@ -20,10 +23,10 @@ My solutions are:
 uv run python 2025/<day>/*.py
 ```
 
-TDD with:
+Tests with:
 
 ```sh
 uv run pytest
 ```
 
-(increment version in `pyproject.toml` as and the `pytest.testpaths` each year).
+(I manually increment the version in `pyproject.toml` and the `pytest.testpaths` in the GitHub action each year).
