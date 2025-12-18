@@ -103,13 +103,17 @@ def test_can_be_accessed_by_forklift():
     assert not can_be_accessed_by_forklift(0, 7, grid)
 
 
+def _count(x, y, grid):
+    is_occupied_by_roll = grid[x, y] == 1
+    return 1 if is_occupied_by_roll and can_be_accessed_by_forklift(x, y, grid) else 0
+
+
 def count_accessible_positions(grid):
     count = 0
     for x in range(grid.shape[0]):
         for y in range(grid.shape[1]):
-            if grid[x, y] == 1:  # Only consider occupied places
-                if can_be_accessed_by_forklift(x, y, grid):
-                    count += 1
+            count += _count(x, y, grid)
+
     return count
 
 
