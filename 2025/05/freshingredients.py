@@ -44,8 +44,8 @@ def test_parse_range_inclusive():
         assert i in r
 
 
-def parse_ranges(l):
-    return list(map(parse_range, l))
+def parse_ranges(ls):
+    return list(map(parse_range, ls))
 
 
 def count_fresh_available(fresh_ranges, available):
