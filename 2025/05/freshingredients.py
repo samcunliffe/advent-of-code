@@ -44,15 +44,46 @@ def test_parse_range_inclusive():
         assert i in r
 
 
-def count_fresh(fresh_ranges, available):
-    ranges = list(map(parse_range, fresh_ranges))
+def parse_ranges(l):
+    return list(map(parse_range, l))
+
+
+def count_fresh_available(fresh_ranges, available):
+    ranges = parse_ranges(fresh_ranges)
     return sum(1 for av in available if any(int(av) in r for r in ranges))
 
 
 def test_count_fresh():
-    fresh_count = count_fresh(*split_fresh_available(EXAMPLE.splitlines()))
+    fresh_count = count_fresh_available(*split_fresh_available(EXAMPLE.splitlines()))
     assert fresh_count == 3
 
 
+def test_dont_ruin_first_answer():
+    assert count_fresh_available(*read_input("2025/05/input")) == 720
+
+
+def max_fresh(fresh_ranges):
+    ranges = parse_ranges(fresh_ranges)
+    return max(r.stop - 1 for r in ranges)
+
+
+def test_max_fresh():
+    fresh_ranges, _ = split_fresh_available(EXAMPLE.splitlines())
+    assert max_fresh(fresh_ranges) == 20
+
+
+def count_fresh_in_range(fresh_ranges):
+    max = max_fresh(fresh_ranges)
+    return sum(
+        1 for i in range(max + 1) if any(i in r for r in parse_ranges(fresh_ranges))
+    )
+
+
+def test_count_fresh_in_range():
+    fresh_ranges, _ = split_fresh_available(EXAMPLE.splitlines())
+    assert count_fresh_in_range(fresh_ranges) == 14
+
+
 if __name__ == "__main__":
-    print(count_fresh(*read_input("2025/05/input")))
+    print(count_fresh_available(*read_input("2025/05/input")))
+    # print(count_fresh_in_range(read_input("2025/05/input")[0]))
