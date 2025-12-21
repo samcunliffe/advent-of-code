@@ -7,4 +7,4 @@
 __pycache__
 **/__pycache__/**
 .venv
-uv.lock # don't need to version control - nothing mission critical here.
+uv.lock
