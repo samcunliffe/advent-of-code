@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Lint with black and ruff
+      - name: Lint with ruff
         run: uv run ruff check .
 
       - name: Test with pytest
